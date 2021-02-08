@@ -1,36 +1,41 @@
-import React, { useEffect } from 'react'
-import {useSelector, useDispatch} from 'react-redux';
-import { removeService, fetchServices } from '../actions/actionCreators';
+import React, { Fragment, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchServices } from '../actions/actionCreators';
+import Loader from "react-loader-spinner";
+import ServiceItem from './ServiceItem';
 
 function ServiceList(props) {
-  const {items, loading, error} = useSelector(state => state.serviceList);
+  const { items, loading, error } = useSelector(state => state.serviceList);
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchServices(dispatch);
   }, [dispatch])
 
-  const handleRemove = id => {
-    dispatch(removeService(id));
-  }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Loader
+        type="TailSpin"
+        color="#00BFFF"
+        height={50}
+        width={50}
+      />
+    );
   }
 
   if (error) {
-    return <p>Something went wrong try again</p>;
+    return <p>{error}</p>;
   }
 
   return (
-    <ul>
-      {items.map(o => (
-        <li key={o.id}>
-          {o.name} {o.price}
-          <button onClick={() => handleRemove(o.id)}>✕</button>
-        </li>
-      ))}
-    </ul>
+    <Fragment>
+        <ul>
+          {items.map(o => (
+            <ServiceItem key={o.id} {...o}/>
+          ))}
+        </ul>
+    </Fragment>
   );
 }
 

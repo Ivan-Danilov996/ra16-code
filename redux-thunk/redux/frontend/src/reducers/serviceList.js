@@ -20,14 +20,14 @@ export default function serviceListReducer(state = initialState, action) {
         error: null,
       };
     case FETCH_SERVICES_FAILURE:
-      const {error} = action.payload;
+      const { error } = action.payload;
       return {
         ...state,
         loading: false,
         error,
       };
     case FETCH_SERVICES_SUCCESS:
-      const {items} = action.payload;
+      const { items } = action.payload;
       return {
         ...state,
         items,
@@ -35,7 +35,7 @@ export default function serviceListReducer(state = initialState, action) {
         error: null,
       };
     case REMOVE_SERVICE:
-      const {id} = action.payload;
+      const { id } = action.payload;
       return {
         ...state,
         items: state.items.filter(o => o.id !== id)
