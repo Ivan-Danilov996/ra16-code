@@ -47,9 +47,11 @@ const mapStateToProps = (state) => {
   return { items, loading, error };
 };
 
-const mapDispatchToProps = {
-  fetchServices,
-  removeService,
-};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    fetchServices: () => fetchServices(dispatch),
+    removeService: id => dispatch(removeService(id))
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceListClassBased);

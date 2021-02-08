@@ -13,7 +13,8 @@ function ServiceAdd() {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    dispatch(addService());
+    //addService(dispatch, item.name, item.price);
+    dispatch(addService())
   }
 
   return (

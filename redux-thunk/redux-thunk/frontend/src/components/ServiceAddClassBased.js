@@ -22,7 +22,7 @@ class ServiceAddClassBased extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.onSave();
+    this.props.onSave(this.props.item.name, this.props.item.price);
   }
 
   render() {
@@ -44,9 +44,11 @@ const mapStateToProps = (state) => {
   return { item, loading, error };
 };
 
-const mapDispatchToProps = {
-  onChange: changeServiceField,
-  onSave: addService,
-};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onChange: (name, value) => changeServiceField(name, value),
+    onSave: (name, price) => addService(dispatch, name, price)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceAddClassBased);
