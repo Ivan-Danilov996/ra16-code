@@ -3,6 +3,8 @@ import {
   SEARCH_SKILLS_REQUEST,
   SEARCH_SKILLS_FAILURE,
   SEARCH_SKILLS_SUCCESS,
+  CLEAR_LIST,
+  CLEAR_LIST_SUCCESS
 } from './actionTypes';
 
 
@@ -25,3 +27,11 @@ export const changeSearchField = search => ({
   type: CHANGE_SEARCH_FIELD,
   payload: {search},
 });
+
+export const clearList = () => ({
+  type: CLEAR_LIST,
+})
+
+export const clearListSuccess = () => ({
+  type: CLEAR_LIST_SUCCESS
+})

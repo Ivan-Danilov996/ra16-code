@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSearchField } from './actions/actionCreators';
+import { changeSearchField, clearList } from './actions/actionCreators';
 
 export default function Skills() {
     const { items, loading, error, search } = useSelector(state => state.skills);
@@ -8,9 +8,12 @@ export default function Skills() {
 
     const handleSearch = evt => {
         const { value } = evt.target;
-        dispatch(changeSearchField(value));
-    };
-
+        if (value === '') {
+            dispatch(clearList())
+        } else {
+            dispatch(changeSearchField(value))
+        }
+    }
     const hasQuery = search.trim() !== '';
     return (
         <Fragment>

@@ -20,10 +20,10 @@ const router = new Router();
 
 let isEven = true;
 router.get('/api/search', async (ctx, next) => {
-    if (Math.random() > 0.75) {
-        ctx.response.status = 500;
-        return;
-    }
+    // if (Math.random() > 0.75) {
+    //     ctx.response.status = 500;
+    //     return;
+    // }
 
     const { q } = ctx.request.query;
     console.log(q);
