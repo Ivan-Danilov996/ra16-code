@@ -17,12 +17,19 @@ export const changeSearchEpic = action$ => action$.pipe(
 
 export const clearListEpic = action$ => action$.pipe(
     ofType(CLEAR_LIST),
-    switchMap(() => of(searchSkillsEpic())).pipe(
-        map(o => throwError(new Error('cancel'))),
-        catchError(e => of(searchSkillsFailure(e)))
-    )
+    switchMap(() => of(changeSearchField('')))
+    // .pipe(
+    //     map(o => throwError(new Error('cancel'))),
+    //     catchError(e => of(searchSkillsFailure(e)))
+    // )
 )
 
+
+// export const clearListEpic = (action$) =>
+//   action$.pipe(
+//     ofType(CLEAR_LIST),
+//     switchMap(() => of(changeSearchField(""))),
+//   );
 
 export const searchSkillsEpic = action$ => action$.pipe(
     ofType(SEARCH_SKILLS_REQUEST),

@@ -32,6 +32,12 @@ export default function skillsReducer(state = initialState, action) {
       };
     case SEARCH_SKILLS_SUCCESS:
       const { items } = action.payload;
+      if (state.clear) {
+        return {
+          ...initialState,
+          clear: false
+        }
+      }
       return {
         ...state,
         items,
@@ -46,7 +52,7 @@ export default function skillsReducer(state = initialState, action) {
       };
     case CLEAR_LIST: {
       return {
-        ...state,
+        ...initialState,
         clear: true
       }
     }
