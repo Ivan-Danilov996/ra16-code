@@ -3,6 +3,7 @@ import {
   SEARCH_SKILLS_FAILURE,
   SEARCH_SKILLS_SUCCESS,
   CHANGE_SEARCH_FIELD,
+  CLEAR_LIST,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   loading: false,
   error: null,
   search: '',
+  cancel: false
 };
 
 export default function skillsReducer(state = initialState, action) {
@@ -29,6 +31,12 @@ export default function skillsReducer(state = initialState, action) {
       };
     case SEARCH_SKILLS_SUCCESS:
       const {items} = action.payload;
+      if (state.cancel) {
+        return {
+          ...initialState,
+          cancel: false
+        }
+      }
       return {
         ...state,
         items,
@@ -41,6 +49,13 @@ export default function skillsReducer(state = initialState, action) {
         ...state,
         search
       };
+      case CLEAR_LIST: {
+        return {
+          ...initialState,
+          cancel: true
+        }
+      }
+    
     default:
       return state;
   }

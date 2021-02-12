@@ -1,6 +1,6 @@
 import { takeLatest, put, spawn, debounce, retry } from 'redux-saga/effects';
-import { searchSkillsRequest, searchSkillsSuccess, searchSkillsFailure } from '../actions/actionCreators';
-import { CHANGE_SEARCH_FIELD, SEARCH_SKILLS_REQUEST } from '../actions/actionTypes';
+import { searchSkillsRequest, searchSkillsSuccess, searchSkillsFailure, clearList } from '../actions/actionCreators';
+import { CHANGE_SEARCH_FIELD, CLEAR_LIST, SEARCH_SKILLS_REQUEST } from '../actions/actionTypes';
 import { searchSkills } from '../api/index';
 
 function filterChangeSearchAction({type, payload}) {
@@ -34,7 +34,16 @@ function* watchSearchSkillsSaga() {
     yield takeLatest(SEARCH_SKILLS_REQUEST, handleSearchSkillsSaga);
 }
 
+function* handleClearListSaga() {
+    yield put(clearList());
+}
+
+function* watchClearListSaga() {    
+    yield takeLatest(CLEAR_LIST, handleClearListSaga)
+}
+
 export default function* saga() {
     yield spawn(watchChangeSearchSaga);
-    yield spawn(watchSearchSkillsSaga)
+    yield spawn(watchSearchSkillsSaga);
+    yield spawn(watchClearListSaga())
 }
